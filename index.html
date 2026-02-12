@@ -57,8 +57,8 @@
         }
 
         #yesBtn {
-            padding: 25px 80px;
-            font-size: 24px;
+            padding: 10px 20px;
+            font-size: 1rem;
             background: #ff1744;
             color: white;
             border: none;
@@ -94,9 +94,8 @@
             transition: all 0.1s ease;
             margin-top: 20px;  
             width: auto;
-            width: auto;
-            z-index: 5;
             pointer-events: auto;
+            z-index: 999;
         }
 
         .success-message {
@@ -123,7 +122,7 @@
         
         <div class="button-container">
             <button id="yesBtn">YES! 💕</button>
-            <button id="noBtn">No</button>
+            <button id="noBtn" onclick="alert('Nice try, but No is not an option today! 😉')">No</button>
         </div>
         
         <div class="success-message" id="successMessage">
@@ -139,9 +138,31 @@
 
         // No button evasion
         noBtn.addEventListener('mouseover', function() {
-            const randomX = Math.random() * 300 - 150;
-            const randomY = Math.random() * 300 - 150;
-            noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+            const padding = 50; // Extra space to keep "No" away from "Yes"
+            let newX, newY;
+            let isOverlapping = true;
+
+            // Get the position and size of the Yes button
+            const yesRect = yesBtn.getBoundingClientRect();
+
+            while (isOverlapping) {
+                // Generate random coordinates
+                newX = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+                newY = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+
+                // Check if the new coordinates are inside the "Yes" button's area (plus padding)
+                const overlapsX = newX + noBtn.offsetWidth > yesRect.left - padding && 
+                          newX < yesRect.right + padding;
+                const overlapsY = newY + noBtn.offsetHeight > yesRect.top - padding && 
+                          newY < yesRect.bottom + padding;
+
+                if (!overlapsX || !overlapsY) {
+                    isOverlapping = false; // It's safe to move there!
+                }
+            }
+
+            noBtn.style.left = `${newX}px`;
+            noBtn.style.top = `${newY}px`;
         });
 
         // Mobile: No button evasion on touch
@@ -150,7 +171,8 @@
             const randomX = Math.random() * 300 - 150;
             const randomY = Math.random() * 300 - 150;
             noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
-        });
+        });            
+
 
         // Yes button click
         yesBtn.addEventListener('click', function() {
