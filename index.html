@@ -54,11 +54,12 @@
             flex-wrap: wrap;
             margin-top: 40px;
             position: relative;
+            overflow: visible;
         }
 
         #yesBtn {
-            padding: 10px 20px;
-            font-size: 1rem;
+            padding: 20px 40px;
+            font-size: 24px;
             background: #ff1744;
             color: white;
             border: none;
@@ -68,6 +69,7 @@
             transition: all 0.3s ease;
             box-shadow: 0 10px 30px rgba(255, 23, 68, 0.4);
             flex: 1;
+            min-width: 100px;
             width: 50%;  
             position: relative;
             z-index: 10;
@@ -93,8 +95,7 @@
             transition: all 0.1s ease;
             margin-top: 20px;  
             width: auto;
-            pointer-events: auto;
-            z-index: 999;
+            z-index: 5;
         }
 
         .success-message {
@@ -137,32 +138,9 @@
 
         // No button evasion
         noBtn.addEventListener('mouseover', function() {
-            const padding = 50; // Extra space to keep "No" away from "Yes"
-            let newX, newY;
-            let isOverlapping = true;
-
-            // Get the position and size of the Yes button
-            const yesRect = yesBtn.getBoundingClientRect();
-
-            while (isOverlapping) {
-                // Generate random coordinates
-                newX = Math.random() * 300 - 150;
-                newY = Math.random() * 300 - 150;
-
-                // Check if the new coordinates are inside the "Yes" button's area (plus padding)
-                const overlapsX = newX + noBtn.offsetWidth > yesRect.left - padding && 
-                          newX < yesRect.right + padding;
-                const overlapsY = newY + noBtn.offsetHeight > yesRect.top - padding && 
-                          newY < yesRect.bottom + padding;
-
-                if (!overlapsX || !overlapsY) {
-                    isOverlapping = false; // It's safe to move there!
-                }
-            }
-            noBtn.style.transform = `translate(${newX}px, ${newY}px)`;
-
-            //noBtn.style.left = `${newX}px`;
-            //noBtn.style.top = `${newY}px`;
+            const randomX = Math.random() * 300 - 150;
+            const randomY = Math.random() * 300 - 150;
+            noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
         });
 
         // Mobile: No button evasion on touch
