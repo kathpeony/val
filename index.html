@@ -68,7 +68,6 @@
             transition: all 0.3s ease;
             box-shadow: 0 10px 30px rgba(255, 23, 68, 0.4);
             flex: 1;
-            min-width: 200px;
             width: 50%;  
             position: relative;
             z-index: 10;
@@ -147,8 +146,8 @@
 
             while (isOverlapping) {
                 // Generate random coordinates
-                newX = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-                newY = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+                newX = Math.random() * 300 - 150;
+                newY = Math.random() * 300 - 150;
 
                 // Check if the new coordinates are inside the "Yes" button's area (plus padding)
                 const overlapsX = newX + noBtn.offsetWidth > yesRect.left - padding && 
@@ -160,9 +159,10 @@
                     isOverlapping = false; // It's safe to move there!
                 }
             }
+            noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
 
-            noBtn.style.left = `${newX}px`;
-            noBtn.style.top = `${newY}px`;
+            //noBtn.style.left = `${newX}px`;
+            //noBtn.style.top = `${newY}px`;
         });
 
         // Mobile: No button evasion on touch
