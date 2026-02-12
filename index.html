@@ -3,19 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Button Resize</title>
+    <title>Valentine's Page</title>
     <style>
-        #yes-button {
-            width: 50%;  /* Make yes button half as large */
+        body {
+            background: linear-gradient(135deg, #800080, #E91E63);
+            animation: gradient 3s ease infinite;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
         }
-        #no-button {
-            margin-top: 20px;  /* Ensure no button doesn't hover over yes button */
-            width: auto;
+
+        @keyframes gradient {
+            0% { background-position: 0 0; }
+            100% { background-position: 100% 100%; }
+        }
+
+        .heart {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            position: relative;
+            animation: heartbeat 1s infinite;
+            margin: 10px;
+        }
+
+        .heart:before, .heart:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 25px;
+            height: 50px;
+            border-radius: 25px;
+            background: red;
+        }
+
+        .heart:before {
+            left: 25px;
+        }
+
+        .heart:after {
+            left: 0;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .button {
+            width: 100px;
+            height: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            background-color: white;
+            border: none;
+            border-radius: 5px;
+            margin: 15px;
+            cursor: pointer;
+        }
+        .yes {
+            width: 50%; /* Half-sized YES button */
         }
     </style>
 </head>
 <body>
-    <button id="yes-button">Yes</button>
-    <button id="no-button">No</button>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <button class="button yes">YES</button>
+    <button class="button">NO</button>
 </body>
 </html>
